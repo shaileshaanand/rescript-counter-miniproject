@@ -1,3 +1,4 @@
+Deployed [here](http://rescript-counter-miniproject-git-master-shaileshaanand.vercel.app/)
 ## Getting Started
 
 ```
