@@ -2,33 +2,35 @@
 
 let count_tag = document["querySelector"]("#count")
 
+let count = ref(0)
+
 let change_count = (increment: bool) => {
-  let inner = count_tag["innerHTML"]
-  let count_raw = inner->Js.String.slice(~from=9, ~to_=Js.String.length(inner))
-  let count = if count_raw == "zero" {
-    0
+  // let inner = count_tag["innerHTML"]
+  // let count_raw = inner->Js.String.slice(~from=9, ~to_=Js.String.length(inner))
+  // let count = if count_raw == "zero" {
+  // 0
+  // } else {
+  // switch Belt.Int.fromString(count_raw) {
+  // | Some(count) => count
+  // | _ => 0
+  // }
+  // }
+  if increment {
+    count := count.contents + 1
   } else {
-    switch Belt.Int.fromString(count_raw) {
-    | Some(count) => count
-    | _ => 0
-    }
-  }
-  let new_count = if increment {
-    count + 1
-  } else {
-    count - 1
+    count := count.contents - 1
   }
 
-  count_tag["innerHTML"] = if new_count == 0 {
+  count_tag["innerHTML"] = if count.contents == 0 {
     "Count is zero"
   } else {
-    `Count is ${Belt.Int.toString(new_count)}`
+    `Count is ${Belt.Int.toString(count.contents)}`
   }
-  if new_count == 0 {
+  if count.contents == 0 {
     count_tag["className"] = "count count-zero"
-  } else if new_count == -1 {
+  } else if count.contents == -1 {
     count_tag["className"] = "count count-negative"
-  } else if new_count == 1 {
+  } else if count.contents == 1 {
     count_tag["className"] = "count count-positive"
   }
 }
